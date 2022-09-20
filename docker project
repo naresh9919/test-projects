@@ -9,14 +9,16 @@ java –version
 vi /etc/ssh/sshd-confg
 # authentication password yes (remove the # tag)
 service sshd reload 
-Yum install python
-Yum install python-pip –y
-Pip install ansible
+
+yum install ansible -y
 Ansible –version
+
 ( if configure file is none at the time we have to create local host)
-( mkdir /etc/ansible  cd /ect/ansible  vi hosts  localhost <type and save>  cat hosts)
+( mkdir /etc/ansible --> cd /ect/ansible --> vi hosts --> localhost <type and save> --> cat hosts)
+
 vi /etc/sudoers
 ansadmin   ALL(ALL)    NOPASSWD:ALL   (paste under root and save)
+
 yum install docker –y
 docker –version 
 service docker start
@@ -31,7 +33,8 @@ sudo chown –R ansadmin:ansadmin /opt/docker   (ls -l)
 usermod -aG docker dockeradmin
 
 
-password less connection-beetween ansible and docker instance
+                password less connection-beetween ansible and docker instance
+
 
 sudo su – ansadmin
 ssh-keygen
