@@ -118,9 +118,6 @@ Change host name (hostname ansible-control-node)
 # passwd dockeradmin
     new password : ansadmin
     conform password : ansadmin
-# sudo mkdir docker ( it shoud be on /opt/)
-        ls  (docker will show)
-# sudo chown –R ansadmin:ansadmin /opt/docker   (ls -l)
 # usermod -aG docker dockeradmin
 
 
@@ -128,6 +125,11 @@ Change host name (hostname ansible-control-node)
 
 
 # sudo su – ansadmin
+
+# sudo mkdir docker ( it shoud be on /opt/)
+        ls  (docker will show)
+# sudo chown –R ansadmin:ansadmin /opt/docker   (ls -l)
+
 # ssh-keygen
    ls –al
 # cd .ssh
