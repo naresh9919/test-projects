@@ -1,54 +1,145 @@
-                    Ansible
+HOST NAME CHANGE
+Jenkins :-  sudo su –
+                Hostname Jenkins
+               sudo su –
+ansible :- sudo su –
+               hostname ansible-contro-node
+              sudo su –
+docker :- sudo su –
+                 hostname docker-host
+                sudo su –
+PLUGINS :-  GITHUB ,MAVEN INVOKER ,MAVEN INTEGRATION ,PUBLISH OVER SSH
+
+                         
+			 
+			 JENKINS
+
+
+# amazon-linux-extras
+# amazon-linux-extras install java11openjdk
+# java –version
+
+	Vi .bash_profile      
+	 find /usr/lib/jvm/java-11* | head -n 3
+	JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.13.0.8-1.amzn2.0.3.x86_64
+	export JAVA_HOME
+	PATH=$PATH:$JAVA_HOME
+	   
+	 source .bash_profile
+
+# vi /etc/ssh/sshd_config
+Authentication password yes  (remove #)
+
+# service sshd reload
+
+# vi /etc/sudoers
+Jenkins ALL=(ALL) NOPASSWD:ALL  (under root)
+
+#  sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+#  sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+# yum install Jenkins
+# service Jenkins start
+# service Jenkins status
+#http://yourserverpublicip:8080
+
+                     configer jenkins 
+
+	- The default Username is `admin`
+	- Grab the default password 
+	- Password Location:`/var/lib/jenkins/secrets/initialAdminPassword`
+	- `Skip` Plugin Installation; _We can do it later_
+	- Change admin password
+	   - `Admin` > `Configure` > `Password`
+	- Configure `java` path
+	  - `Manage Jenkins` > `Global Tool Configuration` > `JDK`  
+	- Create another admin user id
+
+
+
+
+MAVEN INSTALLING ON JENKINS
+
+	# cd /opt/
+
+# wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+	# tar -xf apache-maven-3.8.6-bin.tar.gz
+	# mv apache-maven-3.8.6/ maven/
+	
+
+	Configure Apache Maven Environment
+	
+
+	# cd /etc/profile.d/
+	# vim maven.sh
+	
+
+	# Apache Maven Environment Variables
+	# MAVEN_HOME for Maven 1 - M2_HOME for Maven 2
+	export M2_HOME=/opt/maven
+	export PATH=${M2_HOME}/bin:${PATH}
+	
+	
+# chmod +x maven.sh
+# source /etc/profile.d/maven.sh
+# mvn –version
+# yum install git -y
+	
+
+
+                      Ansible
 
 installation ansible
-Sudo su –
-Change host name (hostname ansible-control-node)
-Sudo su –
-amazon-linux-extras install java-openjdk11 –y
-java –version
-vi /etc/ssh/sshd-confg
-# authentication password yes (remove the # tag)
-service sshd reload 
 
-yum install ansible -y
-Ansible –version
+# Sudo su –
+Change host name (hostname ansible-control-node)
+# Sudo su –
+
+# amazon-linux-extras install java-openjdk11 –y
+# java –version
+
+# vi /etc/ssh/sshd-confg
+# authentication password yes (remove the # tag)
+# service sshd reload 
+
+# yum install ansible -y
+# Ansible –version
 
 ( if configure file is none at the time we have to create local host)
 ( mkdir /etc/ansible --> cd /ect/ansible --> vi hosts --> localhost <type and save> --> cat hosts)
 
-vi /etc/sudoers
-ansadmin   ALL(ALL)    NOPASSWD:ALL   (paste under root and save)
+# vi /etc/sudoers
+   ansadmin   ALL(ALL)    NOPASSWD:ALL   (paste under root and save)
 
-yum install docker –y
-docker –version 
-service docker start
-service docker status
-useradd dockeradmin
-passwd dockeradmin
-new password : ansadmin
-conform password : ansadmin
-sudo mkdir docker ( it shoud be on /opt/)
-ls  (docker will show)
-sudo chown –R ansadmin:ansadmin /opt/docker   (ls -l)
-usermod -aG docker dockeradmin
+# yum install docker –y
+# docker –version 
+# service docker start
+# service docker status
+# useradd dockeradmin
+# passwd dockeradmin
+    new password : ansadmin
+    conform password : ansadmin
+# sudo mkdir docker ( it shoud be on /opt/)
+        ls  (docker will show)
+# sudo chown –R ansadmin:ansadmin /opt/docker   (ls -l)
+# usermod -aG docker dockeradmin
 
 
                 password less connection-beetween ansible and docker instance
 
 
-sudo su – ansadmin
-ssh-keygen
-ls –al
-cd .ssh
-ssh-copy-id ansadmin@ docker IP
-yes and give password
-number of keys added : 1
-cd..
-ssh ansadmin@docker IP  (docker will connected with the ansible)
-exit (again it will came to ansible server)
-ssh-copy-id localhost    (yes and give password)
-added one key (that is localhost)
-ansible all –m ping   (it will ping successfully )
+# sudo su – ansadmin
+# ssh-keygen
+   ls –al
+# cd .ssh
+# ssh-copy-id ansadmin@(docker IP)
+   yes and give password
+   number of keys added : 1
+# cd..
+# ssh ansadmin@docker IP  (docker will connected with the ansible)
+       exit (again it will came to ansible server)
+# ssh-copy-id localhost    (yes and give password)
+     added one key (that is localhost)
+# ansible all –m ping   (it will ping successfully )
 
 
 
@@ -59,78 +150,78 @@ ansible all –m ping   (it will ping successfully )
     Install docker and start docker services
 
 
-sudo su –
-host name docker-host
-sudo su -
-amazon-linux-extras install java-openjdk11 –y
-java –version
-vi /etc/ssh/sshd-confg
-# authentication password yes (remove the # tag)
-service sshd reload
-yum install docker –y
-docker --version
-start docker services
-service docker start
-service docker status
+# sudo su –
+# host name docker-host
+# sudo su -
+
+# amazon-linux-extras install java-openjdk11 –y
+      java –version
+# vi /etc/ssh/sshd-confg
+      authentication password yes (remove the # tag)
+# service sshd reload
+# vi /ete/sudoers
+   ansadmin ALL=(ALL) NOPASSWD:ALL
+
+
+# yum install docker –y
+   docker --version
+
+# service docker start
+# service docker status
 
         Create a user called dockeradmin
 
-useradd dockeradmin
-passwd dockerad min
-new password : ansadmin
-conform password : ansadmin
+# useradd dockeradmin
+# passwd dockerad min
+# new password : ansadmin
+# conform password : ansadmin
 
-
-vi /ete/sudoers
-ansadmin ALL=(ALL) NOPASSWD:ALL
-
-add a user to docker group  manage docker
-
-usermod -aG docker dockeradmin
+# usermod -aG docker dockeradmin
 
 
 Connection between Jenkins and ansible
 
     go to Jenkins 
 
-manage Jenkins --> configure system --> publish over SSH
-ADD 
-SSH server name : ansible server (name of ansible)
-host name : ansible IP (paste) 
-user name : ansadmin --> use password authentication 
-remote directory :
-pass phase/password:
+# manage Jenkins --> configure system --> publish over SSH
+      ADD 
+      SSH server name : ansible server (name of ansible)
+      host name : ansible IP (paste) 
+      user name : ansadmin --> use password authentication 
+      remote directory :/opt/docker
+      pass phase/password:
   
-  click on test configuration --> success (now successfully connected Jenkins to ansible server)
+      click on test configuration --> success (now successfully connected Jenkins to ansible server)
 
-apply and save
+# apply and save
 
 Docker is a target system
 
-Go to the Github --> select source code --> hosts --> localhost --> docker IP (paste)
-Update --> Change commit
+      Go to the Github --> select source code --> hosts --> localhost --> docker IP (paste)
+      Update --> Change commit
 
-login to dockerhub and credentials on ansible instance using “root user”
-sudo su – (it will connecting as a root user)
-docker login
-user name and password (dockerhub credentials)
-login successful 
+      login to dockerhub and credentials on ansible instance using “root user”
+# sudo su – (it will connecting as a root user)
+# docker login
+       user name and password (dockerhub credentials)
+       login successful 
 
 
          Jenkins-job (Maven Project)
 
 
-project name: deploy on container using ansible
-go to Jenkins  new item  project name  maven project  ok
-git  git url  branch : */main 
-Build  pom.xml  Goals : clean install package
-Post build action  send build artifacts over SSH
+     project name: deploy on container using ansible
+     go to Jenkins --> new item --> project name --> maven project --> ok
+     git --> git url --> branch : */main 
+     Build --> pom.xml --> Goals : clean install package
+     Post build action --> send build artifacts over SSH
 
 
 Source file : dockerfile,hosts,create-simple-devops-project.yml,create-simple-devops-image.yml
 Remote directory : /opt/docker   (files will deploy here)
-Applay and save
-Build – console output successful
+
+# Applay and save
+# Build – console output successful
 
  
 After successful build 
@@ -147,23 +238,25 @@ On ansible srver --> docker --> docker image (or) docker ps
 	        Deploy maven project to dockerhub
 
 
-Go to the Jenkins --> select project --> configure  add server
+# Go to the Jenkins --> select project --> configure  add server
 
-Source file : webapp/target/*.war
-Remove prefix : webapp/target
-Remote directory : /opt/docker
-Exec command : dockerfile,hosts,create-simple-devops-project.yml,create-simple-devops-project.yml
-
-
+    Source file : webapp/target/*.war
+    Remove prefix : webapp/target
+    Remote directory : /opt/docker
+    Exec command : dockerfile,hosts,create-simple-devops-project.yml,create-simple-devops-project.yml
 
 
-Apply  and save
-Build success
 
-Go to ansible server --> docker image --> webapp.war  (it will add new file)
-Go to docker server --> docker image -->  it will show the list
-After creating the images automatically deleted images from the docker server but it will be there on ansible server
-Go to the dockerhub and give refresh the dockerhub
+
+# Apply  and save
+# Build success
+
+
+
+   Go to ansible server --> docker image --> webapp.war  (it will add new file)
+   Go to docker server --> docker image -->  it will show the list
+   After creating the images automatically deleted images from the docker server but it will be there on ansible server
+   Go to the dockerhub and give refresh the dockerhub
 
 Copy the docker public IP --> paste on google --> docker public IP:8080/webapp --> we can the output of source code
 
@@ -200,8 +293,8 @@ Give username and password of git
 
 Then automatically new job will start on Jenkins
 And you can check on ansible server
-Docker image   on ansible server
-Docker ps    on docker server
+Docker image  --> on ansible server
+Docker ps   --> on docker server
 Successfully changed source code
 
 •	http://<docker-public-IP>:/8080/webapp
